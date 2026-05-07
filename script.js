@@ -3,7 +3,7 @@ $(function () {
 
   const list = document.querySelector(".list ul");
   const loadError = document.getElementById("load-error");
-  const csvPaths = ["data/spreadsheet.csv", "./data/spreadsheet.csv"];
+  const csvPaths = ["data/theses.csv", "./data/theses.csv"];
   let original = [];
 
   function isMobile() {
@@ -71,7 +71,16 @@ $(function () {
     const abstractWrap = document.createElement("div");
     abstractWrap.className = "abstract";
     const abstractParagraph = document.createElement("p");
-    abstractParagraph.textContent = row.abstract || "";
+    const fullAbstract = row.abstract || "";
+    if (fullAbstract.length > 250) {
+      const cut = fullAbstract.lastIndexOf(" ", 250);
+      abstractParagraph.innerHTML = fullAbstract.slice(0, cut > 0 ? cut : 250);
+      const ellipsis = document.createElement("span");
+      ellipsis.textContent = "…";
+      abstractParagraph.appendChild(ellipsis);
+    } else {
+      abstractParagraph.innerHTML = fullAbstract;
+    }
     abstractParagraph.appendChild(link);
     abstractWrap.appendChild(abstractParagraph);
 
@@ -127,6 +136,7 @@ $(function () {
     return fetchCsv().then((csvText) => {
       const { data } = Papa.parse(csvText, {
         header: true,
+        delimiter: ";",
         transformHeader: normalizeKey,
         skipEmptyLines: true,
       });
