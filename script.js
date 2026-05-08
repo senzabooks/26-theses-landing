@@ -66,7 +66,7 @@ $(function () {
     link.href = row.hyperlink || "#";
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    link.innerHTML = "&nbsp;&#8599;&#65038;";
+    link.innerHTML = "&nbsp;";
 
     const abstractWrap = document.createElement("div");
     abstractWrap.className = "abstract";
