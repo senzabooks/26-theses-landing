@@ -161,6 +161,14 @@ ul {
   color: crimson;
 }
 
+ul:has(.hover-item:hover) .hover-item {
+  opacity: 0.3;
+}
+
+ul:has(.hover-item:hover) .hover-item:hover {
+  opacity: 1;
+}
+
 .gallery-img {
   display: none;
 }
